@@ -1,8 +1,9 @@
 const inquirer = require("inquirer");
-const mysql = require("mysql");
+const mysql = require("mysql2");
+const db = require('./db/connection');
 require("console.table");
 
-function select() {
+function start() {
 
     inquirer.prompt({
         name: "Choices",
@@ -47,3 +48,17 @@ function select() {
     });
 }
 
+const viewDepartments = () => {
+    const department = `SELECT * FROM departments`;
+    db.query(department, (err, data) => {
+        if (err) {
+            throw err;
+        } else {
+        console.table("All departments: ", data);
+        }
+        start();
+    });
+}
+
+
+start();
