@@ -54,11 +54,60 @@ const viewDepartments = () => {
         if (err) {
             throw err;
         } else {
-        console.table("All departments: ", data);
+            console.table('All departments: ', data);
         }
         start();
     });
 }
+
+
+const viewEmployees = () => {
+    const employees = `SELECT * FROM employees`;
+    db.query(employees, (err, data) => {
+        if (err) {
+            throw err;
+        } else {
+            console.table('All employees: ', data);
+        }
+        start();
+    });
+}
+
+
+const viewRoles = () => {
+    const roles = `SELECT * FROM roles`;
+    db.query(roles, (err, data) => {
+        if (err) {
+            throw err;
+        } else {
+            console.table('All roles: ', data);
+        }
+        start();
+    });
+}
+
+
+function addDepartment() {
+    inquirer.prompt([
+        {
+           message: "Enter name of new department:",
+           type: "input",
+           name: "name"
+        }
+     ]) .then(function (answer) {
+        const newDepartment = answer.name
+
+        db.query("INSERT INTO department (depart_name) VALUES ( ? )", [newDepartment], function (err, res) {
+            if (err) throw err;
+
+            console.table(`${newDepartment} added!`);
+            start();
+        });
+    });
+};
+
+
+
 
 
 start();
