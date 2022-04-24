@@ -8,14 +8,14 @@ VALUES
 ('Jayson', 'Great', 06);
 
 
-INSERT INTO role (job, base_salary, departmentId) 
+INSERT INTO roles (title, base_salary, departmentId) 
 VALUES
 ('Service Technician', 70000, 1),
 ('Plumber', 69000, 2),
 ('Service Manager', 90000, 1);
 
 
-INSERT INTO department
+INSERT INTO departments (title)
 VALUES
 ('HVAC'),
 ('Plumbing'),

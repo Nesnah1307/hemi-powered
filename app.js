@@ -92,6 +92,46 @@ function addDepartment() {
         {
            message: "Enter name of new department:",
            type: "input",
+           name: "departments"
+        }
+     ]) .then(function (answer) {
+        const newDepartment = answer.name
+
+        db.query("INSERT INTO departments (name) VALUES ( ? )", [newDepartment], function (err, res) {
+            if (err) throw err;
+
+            console.table(`${newDepartment} added!`);
+            start();
+        });
+    });
+};
+
+
+function addEmployee() {
+    inquirer.prompt([
+        {
+           message: "Enter the name for the new employee:",
+           type: "input",
+           name: "employees"
+        }
+     ]) .then(function (answer) {
+        const newEmployee = answer.name
+
+        db.query("INSERT INTO employees (name) VALUES ( ? )", [newEmployee], function (err, res) {
+            if (err) throw err;
+
+            console.table(`${newEmployee} added!`);
+            start();
+        });
+    });
+};
+
+
+function addDepartment() {
+    inquirer.prompt([
+        {
+           message: "Enter name of new department:",
+           type: "input",
            name: "name"
         }
      ]) .then(function (answer) {
@@ -105,9 +145,6 @@ function addDepartment() {
         });
     });
 };
-
-
-
 
 
 start();
