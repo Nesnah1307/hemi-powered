@@ -1,7 +1,7 @@
-const inquirer = require("inquirer");
+const inquirer = require('inquirer');
 const mysql = require("mysql2");
 const db = require('./db/connection');
-require("console.table");
+const table = require('console.table');
 
 function start() {
 
@@ -16,7 +16,7 @@ function start() {
             "Add a department",
             "Add an employee",
             "Add Role",
-            "Exit",
+            "Exit"
         ],
     }).then((userSelect) => {
         switch (userSelect.Choices) {
@@ -49,8 +49,8 @@ function start() {
 }
 
 const viewDepartments = () => {
-    const department = `SELECT * FROM departments`;
-    db.query(department, (err, data) => {
+    const departments = `SELECT * FROM departments`;
+    db.query(departments, (err, data) => {
         if (err) {
             throw err;
         } else {
@@ -90,14 +90,14 @@ const viewRoles = () => {
 function addDepartment() {
     inquirer.prompt([
         {
-           message: "Enter name of new department:",
-           type: "input",
-           name: "departments"
+           message: 'Enter name of new department:',
+           type: 'input',
+           name: 'departments'
         }
      ]) .then(function (answer) {
-        const newDepartment = answer.name
+        const newDepartment = answer.departments
 
-        db.query("INSERT INTO departments (name) VALUES ( ? )", [newDepartment], function (err, res) {
+        db.query("INSERT INTO departments (title) VALUES ( ? )", [newDepartment], function (err, res) {
             if (err) throw err;
 
             console.table(`${newDepartment} added!`);
@@ -110,37 +110,28 @@ function addDepartment() {
 function addEmployee() {
     inquirer.prompt([
         {
-           message: "Enter the name for the new employee:",
-           type: "input",
-           name: "employees"
+           message: 'Enter the first name of the new employee:',
+           type: 'input',
+           name: 'firstName'
+        },
+        {
+            message: 'Enter the last name of the new employee:',
+            type: 'input',
+            name: 'lastName'
+        },
+        {
+            message: 'What is the role id of the new employee (number).',
+            type: 'number',
+            name: 'roleId'
         }
      ]) .then(function (answer) {
-        const newEmployee = answer.name
+        const employeePrompt = `INSERT INTO employees (first_name, last_name, role_id) VALUES (?,?,?)`;
+        const newEmployee = [answer.first_name, answer.last_name, answer.role_id];
 
-        db.query("INSERT INTO employees (name) VALUES ( ? )", [newEmployee], function (err, res) {
+        db.query(employeePrompt, newEmployee, (err, res) => {
             if (err) throw err;
 
             console.table(`${newEmployee} added!`);
-            start();
-        });
-    });
-};
-
-
-function addDepartment() {
-    inquirer.prompt([
-        {
-           message: "Enter name of new department:",
-           type: "input",
-           name: "name"
-        }
-     ]) .then(function (answer) {
-        const newDepartment = answer.name
-
-        db.query("INSERT INTO department (depart_name) VALUES ( ? )", [newDepartment], function (err, res) {
-            if (err) throw err;
-
-            console.table(`${newDepartment} added!`);
             start();
         });
     });

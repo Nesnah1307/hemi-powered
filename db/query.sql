@@ -1,0 +1,1 @@
+SELECT * FROM employees LEFT JOIN roles ON employees.role_id = roles.id WHERE employees.role_id = 3;

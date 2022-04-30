@@ -1,22 +1,25 @@
-INSERT INTO employees (first_name, last_name, role_id)
+INSERT INTO departments (title)
 VALUES
-('Mack', 'Hansen', 01),
-('Gus', 'Guapo', 02),
-('Payton', 'Swimmer', 03),
-('Kody', 'Mastic', 04),
-('Lyil', 'Teflon', 05),
-('Jayson', 'Great', 06);
-
+('HVAC'),
+('Plumbing'),
+('Manager');
 
 INSERT INTO roles (title, base_salary, departmentId) 
 VALUES
 ('Service Technician', 70000, 1),
 ('Plumber', 69000, 2),
-('Service Manager', 90000, 1);
+('Service Manager', 90000, 3);
 
-
-INSERT INTO departments (title)
+INSERT INTO employees (first_name, last_name, role_id)
 VALUES
-('HVAC'),
-('Plumbing'),
-('Manager')
+('Mack', 'Hansen', 1),
+('Gus', 'Guapo', 2),
+('Payton', 'Swimmer', 3),
+('Kody', 'Mastic', 3),
+('Lyil', 'Teflon', 3),
+('Jayson', 'Great', 1);
+
+
+
+
+
